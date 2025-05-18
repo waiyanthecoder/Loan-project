@@ -157,33 +157,74 @@ func editBorrower(B *Borrow, N *int) {
 	}
 }
 
+/*
 func searchBorrower(B Borrow, N int) {
+	var method int
+	var left, right, mid int
 	var name string
-	fmt.Print("Enter borrower name to search: ")
-	fmt.Scan(&name)
+	var found bool
+	fmt.Println("1.Binary Search")
+	fmt.Println("2.Sequential Search")
+	fmt.Print("Choose: ")
+	fmt.Scan(&method)
 
-	found := false
-	for i := 0; i < N; i++ {
-		if B[i].name == name {
-			fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-			fmt.Println("Borrower Found")
-			fmt.Println("Name: ", B[i].name)
-			fmt.Println("Loan Amount: ", B[i].loanAmount)
-			fmt.Println("Loan Term: ", B[i].loanTerm)
-			fmt.Println("Interest Rate: ", B[i].interestRate)
-			fmt.Println("Monthly Payment: ", B[i].monthlyPayment)
-			fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	if method == 1 {
+		sortForBinarySearch(&B, N)
+		fmt.Print("Enter borrower name to search: ")
+		fmt.Scan(&name)
+		left = 0
+		right = N - 1
+		found = false
+		for left <= right {
+			mid = (left + right) / 2
+			if B[mid].name == name {
+				found = true
+				fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+				fmt.Println("Borrower Found")
+				fmt.Println("Name: ", B[mid].name)
+				fmt.Println("Loan Amount: ", B[mid].loanAmount)
+				fmt.Println("Loan Term: ", B[mid].loanTerm)
+				fmt.Println("Interest Rate: ", B[mid].interestRate)
+				fmt.Println("Monthly Payment: ", B[mid].monthlyPayment)
+				fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+				printPaymentSchedule(B[mid])
+				left = right + 1
+			} else if B[mid].name < name {
+				left = mid + 1
+			} else {
+				right = mid - 1
+			}
+		}
 
-			printPaymentSchedule(B[i]) // ここで支払スケジュール表示を追加
+		if !found {
+			fmt.Println("Borrower not found.")
+		}
+	} else if method == 2 {
+		fmt.Print("Enter borrower name to search: ")
+		fmt.Scan(&name)
 
-			found = true
-			break
+		found = false
+		for i := 0; i < N; i++ {
+			if B[i].name == name {
+				fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+				fmt.Println("Borrower Found")
+				fmt.Println("Name: ", B[i].name)
+				fmt.Println("Loan Amount: ", B[i].loanAmount)
+				fmt.Println("Loan Term: ", B[i].loanTerm)
+				fmt.Println("Interest Rate: ", B[i].interestRate)
+				fmt.Println("Monthly Payment: ", B[i].monthlyPayment)
+				fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+				found = true
+				printPaymentSchedule(B[i]) // ここで支払スケジュール表示を追加
+			}
+		}
+		if !found {
+			fmt.Println("Borrower not found.")
 		}
 	}
-	if !found {
-		fmt.Println("Borrower not found.")
-	}
 }
+*/
+
 func report(B Borrow, N int) {
 	fmt.Println("All Borrowers:")
 	for i := 0; i < N; i++ {
@@ -260,4 +301,93 @@ func printPaymentSchedule(b borrower) {
 		fmt.Printf("%5d | %7.2f | %8.2f | %9.2f | %17.2f\n", month, b.monthlyPayment, interest, principal, remaining)
 	}
 	fmt.Println()
+}
+
+func sortForBinarySearch(B *Borrow, N int) {
+	var idx int
+	var temp borrower
+
+	for i := 0; i < N-1; i++ {
+		idx = i
+		for j := i + 1; j < N; j++ {
+			if B[j].name < B[idx].name {
+				idx = j
+			}
+		}
+		temp = B[i]
+		B[i] = B[idx]
+		B[idx] = temp
+	}
+}
+
+func searchBorrower(B Borrow, N int) {
+	var method int
+	var name string
+	fmt.Println("1.Binary Search")
+	fmt.Println("2.Sequential Search")
+	fmt.Print("Choose: ")
+	fmt.Scan(&method)
+	if method == 1 {
+		fmt.Print("Enter borrower name to search: ")
+		fmt.Scan(&name)
+		binarySearch(B, N, name)
+	} else if method == 2 {
+		fmt.Print("Enter borrower name to search: ")
+		fmt.Scan(&name)
+		sequentialSearch(B, N, name)
+	} else {
+		fmt.Println("Invalid choice")
+	}
+}
+func binarySearch(B Borrow, N int, name string) {
+	var left, right, mid int
+	var found bool
+	sortForBinarySearch(&B, N)
+	left = 0
+	right = N - 1
+	found = false
+	for left <= right {
+		mid = (left + right) / 2
+		if B[mid].name == name {
+			found = true
+			fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			fmt.Println("Borrower Found")
+			fmt.Println("Name: ", B[mid].name)
+			fmt.Println("Loan Amount: ", B[mid].loanAmount)
+			fmt.Println("Loan Term: ", B[mid].loanTerm)
+			fmt.Println("Interest Rate: ", B[mid].interestRate)
+			fmt.Println("Monthly Payment: ", B[mid].monthlyPayment)
+			fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			printPaymentSchedule(B[mid])
+			left = right + 1
+		} else if B[mid].name < name {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+
+	if !found {
+		fmt.Println("Borrower not found.")
+	}
+}
+func sequentialSearch(B Borrow, N int, name string) {
+	var found bool
+	for i := 0; i < N; i++ {
+		if B[i].name == name {
+			fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			fmt.Println("Borrower Found")
+			fmt.Println("Name: ", B[i].name)
+			fmt.Println("Loan Amount: ", B[i].loanAmount)
+			fmt.Println("Loan Term: ", B[i].loanTerm)
+			fmt.Println("Interest Rate: ", B[i].interestRate)
+			fmt.Println("Monthly Payment: ", B[i].monthlyPayment)
+			fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			found = true
+			printPaymentSchedule(B[i]) // ここで支払スケジュール表示を追加
+		}
+	}
+	if !found {
+		fmt.Println("Borrower not found.")
+	}
 }
