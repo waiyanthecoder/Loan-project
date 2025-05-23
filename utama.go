@@ -113,7 +113,7 @@ func removeBorrower(B *Borrow, N *int) {
 	fmt.Scan(&name)
 
 	found := false
-	for i := 0; i < *N; i++ {
+	for i := 0; i < *N && !found; i++ {
 		if B[i].name == name {
 			for j := i; j < *N-1; j++ {
 				B[j] = B[j+1]
@@ -121,7 +121,6 @@ func removeBorrower(B *Borrow, N *int) {
 			*N--
 			fmt.Println("Borrower removed.")
 			found = true
-			break
 		}
 	}
 	if !found {
@@ -156,74 +155,6 @@ func editBorrower(B *Borrow, N *int) {
 		fmt.Println("Borrower not found.")
 	}
 }
-
-/*
-func searchBorrower(B Borrow, N int) {
-	var method int
-	var left, right, mid int
-	var name string
-	var found bool
-	fmt.Println("1.Binary Search")
-	fmt.Println("2.Sequential Search")
-	fmt.Print("Choose: ")
-	fmt.Scan(&method)
-
-	if method == 1 {
-		sortForBinarySearch(&B, N)
-		fmt.Print("Enter borrower name to search: ")
-		fmt.Scan(&name)
-		left = 0
-		right = N - 1
-		found = false
-		for left <= right {
-			mid = (left + right) / 2
-			if B[mid].name == name {
-				found = true
-				fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-				fmt.Println("Borrower Found")
-				fmt.Println("Name: ", B[mid].name)
-				fmt.Println("Loan Amount: ", B[mid].loanAmount)
-				fmt.Println("Loan Term: ", B[mid].loanTerm)
-				fmt.Println("Interest Rate: ", B[mid].interestRate)
-				fmt.Println("Monthly Payment: ", B[mid].monthlyPayment)
-				fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-				printPaymentSchedule(B[mid])
-				left = right + 1
-			} else if B[mid].name < name {
-				left = mid + 1
-			} else {
-				right = mid - 1
-			}
-		}
-
-		if !found {
-			fmt.Println("Borrower not found.")
-		}
-	} else if method == 2 {
-		fmt.Print("Enter borrower name to search: ")
-		fmt.Scan(&name)
-
-		found = false
-		for i := 0; i < N; i++ {
-			if B[i].name == name {
-				fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-				fmt.Println("Borrower Found")
-				fmt.Println("Name: ", B[i].name)
-				fmt.Println("Loan Amount: ", B[i].loanAmount)
-				fmt.Println("Loan Term: ", B[i].loanTerm)
-				fmt.Println("Interest Rate: ", B[i].interestRate)
-				fmt.Println("Monthly Payment: ", B[i].monthlyPayment)
-				fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-				found = true
-				printPaymentSchedule(B[i]) // ここで支払スケジュール表示を追加
-			}
-		}
-		if !found {
-			fmt.Println("Borrower not found.")
-		}
-	}
-}
-*/
 
 func report(B Borrow, N int) {
 	fmt.Println("All Borrowers:")
