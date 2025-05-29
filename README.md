@@ -1,27 +1,21 @@
 # Final Project: Simple Loan and Credit Simulation Application
 
 ## Project Description
-This application simulates a loan and credit system with fixed or variable interest 
-schemes. The primary data includes a list of borrowers, loan amounts, loan terms, 
-and payment status. The intended users are individuals who want to simulate loan 
-systems virtually.
-Specifications:
-a. Users can add, modify, and delete borrower data and loan amounts.
-b. The system calculates interest and monthly installments based on the loan amount 
-and chosen term.
-c. Users can search for borrower data by name using Sequential and Binary 
-Search.
-d. Users can sort borrowers by loan amount or loan term using Selection and 
-Insertion Sort.
-e. The system displays reports on total loans issued and payment status. 
+This project is a command-line based loan and credit simulation system developed in Go (Golang). It allows users to manage borrower information, simulate loans with fixed or variable interest, and generate useful reports. This tool is designed for users who want to understand how loan systems work in a virtual environment.
+
+## Project Specifications
+- Add, edit, and delete borrower data
+- Calculate interest and monthly installments based on loan amount and term
+- Search borrower data by name using Sequential and Binary Search
+- Sort borrower list by loan amount or term using Selection and Insertion Sort
+- Display reports on total loans and payment status
 
 ## Features
-- Add, edit, and delete borrower data
-- Calculate interest and monthly installments
-- Sequential and binary search
-- Selection and insertion sort
-- Generate summary reports
+- User-friendly menu system via CLI
+- Accurate interest and installment computation
+- Efficient data search and sorting functions
+- Summary reporting of borrower and loan data
 
 ## Technologies Used
-- Language: Go (Golang)
-
+- Programming Language: Go (Golang)
+- Interface: Command Line (Terminal)
